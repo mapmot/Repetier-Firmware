@@ -110,7 +110,9 @@ What display type do you use?
 // CD Pin:   UI_DISPLAY_RS_PIN
 
 // ST7920 with software SPI
-#define U8GLIB_ST7920
+//#define U8GLIB_ST7920
+// ST7920 with hardware SPI
+#define U8GLIB_ST7920_HW
 // SSD1306 with software SPI
 //#define U8GLIB_SSD1306_SW_SPI
 // SH1106 with software SPI
