@@ -78,17 +78,18 @@ void SDCard::initsd()
     if(READ(SDCARDDETECT) != SDCARDDETECTINVERTED)
         return;
 #endif
-	HAL::pingWatchdog();
-	HAL::delayMilliseconds(50); // wait for stabilization of contacts, bootup ...
-    fat.begin(SDSS, SPI_FULL_SPEED);  // dummy init of SD_CARD
-    HAL::delayMilliseconds(50);       // wait for init end
-	HAL::pingWatchdog();
+//	HAL::pingWatchdog();
+//	HAL::delayMilliseconds(50); // wait for stabilization of contacts, bootup ...
+//    fat.begin(SDSS, SPI_FULL_SPEED);  // dummy init of SD_CARD
+//    HAL::delayMilliseconds(50);       // wait for init end
+//    HAL::pingWatchdog();
     /*if(dir[0].isOpen())
         dir[0].close();*/
-    if(!((fat.begin(SDSS, SPI_FULL_SPEED)) || fat.begin(SDSS, SPI_HALF_SPEED)))
+    for (uint8_t sck_rate = 0 ; !(sdactive = fat.begin(SDSS, sck_rate)) && sck_rate < 7 ; sck_rate++) HAL::pingWatchdog();
+    if (!sdactive)
     {
         Com::printFLN(Com::tSDInitFail);
-		sdmode = 100; // prevent automount loop!
+		    sdmode = 100; // prevent automount loop!
         return;
     }
     sdactive = true;
