@@ -120,6 +120,7 @@ void Extruder::manageTemperatures()
                 extruder[controller].coolerPWM = 0;
             else
                 extruder[controller].coolerPWM = extruder[controller].coolerSpeed;
+            Printer::setFanSpeedDirectly(extruder[controller].coolerPWM > Printer::fanSpeed ? extruder[controller].coolerPWM : Printer::fanSpeed);
 #endif // NUM_EXTRUDER
         } // extruder controller
         // do skip temperature control while auto tuning is in progress
