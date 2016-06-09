@@ -85,7 +85,7 @@ void SDCard::initsd()
 	HAL::pingWatchdog();
     /*if(dir[0].isOpen())
         dir[0].close();*/
-    if(!fat.begin(SDSS, SPI_FULL_SPEED))
+    if(!((fat.begin(SDSS, SPI_FULL_SPEED)) || fat.begin(SDSS, SPI_HALF_SPEED)))
     {
         Com::printFLN(Com::tSDInitFail);
 		sdmode = 100; // prevent automount loop!
