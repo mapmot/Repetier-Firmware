@@ -1,3 +1,26 @@
+/* 
+There're many cases where Melzi board is failing, so it's very common to replace it with another option. 
+This is the configuration for one of the most used options: MEGA & RAMPS.
+
+The configuration is prepared for these options:
+
+- RAMPS 1.4
+- Arduino MEGA 2560 R3
+- Drivers A4988
+- LCD12864 3D Printer Controller Board Kit
+
+You have to be careful to change configuration with the particularities of your hardware, 
+for this there's nothing better than the online configuration tool:
+
+https://www.repetier.com/firmware/v092/
+
+IMPORTANT NOTES:
+
+Read carefully the README of this folder, many things told there are applicable to this configuration.
+
+Efrain Atienza
+*/
+
 /*
     This file is part of Repetier-Firmware.
 
@@ -15,6 +38,8 @@
     along with Repetier-Firmware.  If not, see <http://www.gnu.org/licenses/>.
 
 */
+
+
 
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
@@ -37,12 +62,14 @@
 */
 
 #define NUM_EXTRUDER 1
-#define MOTHERBOARD 63
+#define MOTHERBOARD 33
 #include "pins.h"
 
 // ################## EDIT THESE SETTINGS MANUALLY ################
 // ################ END MANUAL SETTINGS ##########################
 
+#undef FAN2_PIN
+    #define FAN2_PIN HEATER_1_PIN
 #undef FAN_BOARD_PIN
 #define FAN_BOARD_PIN -1
 #define BOARD_FAN_SPEED 255
@@ -65,7 +92,7 @@
 #define DRIVE_SYSTEM 0
 #define XAXIS_STEPS_PER_MM 100
 #define YAXIS_STEPS_PER_MM 100
-#define ZAXIS_STEPS_PER_MM 1600
+#define ZAXIS_STEPS_PER_MM 400
 #define EXTRUDER_FAN_COOL_TEMP 50
 #define PDM_FOR_EXTRUDER 0
 #define PDM_FOR_COOLER 0
@@ -76,16 +103,16 @@
 #define PAUSE_START_COMMANDS ""
 #define PAUSE_END_COMMANDS ""
 #define SHARED_EXTRUDER_HEATER 0
-#define EXT0_X_OFFSET 0
-#define EXT0_Y_OFFSET 0
+#define EXT0_X_OFFSET -2200
+#define EXT0_Y_OFFSET 500
 #define EXT0_Z_OFFSET 0
-#define EXT0_STEPS_PER_MM 95
+#define EXT0_STEPS_PER_MM 90
 #define EXT0_TEMPSENSOR_TYPE 1
 #define EXT0_TEMPSENSOR_PIN TEMP_0_PIN
 #define EXT0_HEATER_PIN HEATER_0_PIN
 #define EXT0_STEP_PIN ORIG_E0_STEP_PIN
 #define EXT0_DIR_PIN ORIG_E0_DIR_PIN
-#define EXT0_INVERSE 0
+#define EXT0_INVERSE 1
 #define EXT0_ENABLE_PIN ORIG_E0_ENABLE_PIN
 #define EXT0_ENABLE_ON 0
 #define EXT0_MIRROR_STEPPER 0
@@ -96,10 +123,10 @@
 #define EXT0_MAX_FEEDRATE 50
 #define EXT0_MAX_START_FEEDRATE 20
 #define EXT0_MAX_ACCELERATION 5000
-#define EXT0_HEAT_MANAGER 3
+#define EXT0_HEAT_MANAGER 1
 #define EXT0_WATCHPERIOD 1
 #define EXT0_PID_INTEGRAL_DRIVE_MAX 230
-#define EXT0_PID_INTEGRAL_DRIVE_MIN 40
+#define EXT0_PID_INTEGRAL_DRIVE_MIN 50
 #define EXT0_PID_PGAIN_OR_DEAD_TIME 7
 #define EXT0_PID_I 2
 #define EXT0_PID_D 40
@@ -113,7 +140,7 @@
 #define EXT0_DESELECT_COMMANDS ""
 #define EXT0_EXTRUDER_COOLER_PIN -1
 #define EXT0_EXTRUDER_COOLER_SPEED 255
-#define EXT0_DECOUPLE_TEST_PERIOD 20000
+#define EXT0_DECOUPLE_TEST_PERIOD 12000
 #define EXT0_JAM_PIN -1
 #define EXT0_JAM_PULLUP 0
 
@@ -158,11 +185,11 @@
 // ############# Heated bed configuration ########################
 
 #define HAVE_HEATED_BED 1
-#define HEATED_BED_MAX_TEMP 120
+#define HEATED_BED_MAX_TEMP 110
 #define SKIP_M190_IF_WITHIN 3
 #define HEATED_BED_SENSOR_TYPE 1
 #define HEATED_BED_SENSOR_PIN TEMP_1_PIN
-#define HEATED_BED_HEATER_PIN 12
+#define HEATED_BED_HEATER_PIN HEATER_1_PIN
 #define HEATED_BED_SET_INTERVAL 5000
 #define HEATED_BED_HEAT_MANAGER 0
 #define HEATED_BED_PID_INTEGRAL_DRIVE_MAX 255
@@ -256,12 +283,12 @@ It also can add a delay to wait for spindle to run on full speed.
 #define max_software_endstop_z true
 #define ENDSTOP_X_BACK_MOVE 5
 #define ENDSTOP_Y_BACK_MOVE 5
-#define ENDSTOP_Z_BACK_MOVE 2
+#define ENDSTOP_Z_BACK_MOVE 0
 #define ENDSTOP_X_RETEST_REDUCTION_FACTOR 3
 #define ENDSTOP_Y_RETEST_REDUCTION_FACTOR 3
 #define ENDSTOP_Z_RETEST_REDUCTION_FACTOR 3
-#define ENDSTOP_X_BACK_ON_HOME 1
-#define ENDSTOP_Y_BACK_ON_HOME 1
+#define ENDSTOP_X_BACK_ON_HOME 20
+#define ENDSTOP_Y_BACK_ON_HOME 10
 #define ENDSTOP_Z_BACK_ON_HOME 0
 #define ALWAYS_CHECK_ENDSTOPS 1
 
@@ -274,17 +301,17 @@ It also can add a delay to wait for spindle to run on full speed.
 #define DISABLE_Y 0
 #define DISABLE_Z 0
 #define DISABLE_E 0
-#define INVERT_X_DIR 0
-#define INVERT_Y_DIR 0
-#define INVERT_Z_DIR 1
+#define INVERT_X_DIR 1
+#define INVERT_Y_DIR 1
+#define INVERT_Z_DIR 0
 #define X_HOME_DIR -1
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
-#define X_MAX_LENGTH 245
-#define Y_MAX_LENGTH 210
-#define Z_MAX_LENGTH 230
-#define X_MIN_POS -38
-#define Y_MIN_POS -7
+#define X_MAX_LENGTH 220
+#define Y_MAX_LENGTH 220
+#define Z_MAX_LENGTH 240
+#define X_MIN_POS 0
+#define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define DISTORTION_CORRECTION 0
 #define DISTORTION_CORRECTION_POINTS 5
@@ -303,7 +330,7 @@ It also can add a delay to wait for spindle to run on full speed.
 // ##                           Movement settings                                          ##
 // ##########################################################################################
 
-#define FEATURE_BABYSTEPPING 1
+#define FEATURE_BABYSTEPPING 0
 #define BABYSTEP_MULTIPLICATOR 1
 
 #define DELTA_SEGMENTS_PER_SECOND_PRINT 180 // Move accurate setting for print moves
@@ -318,10 +345,10 @@ It also can add a delay to wait for spindle to run on full speed.
 #define MAX_INACTIVE_TIME 0L
 #define MAX_FEEDRATE_X 400
 #define MAX_FEEDRATE_Y 400
-#define MAX_FEEDRATE_Z 5
+#define MAX_FEEDRATE_Z 4
 #define HOMING_FEEDRATE_X 100
 #define HOMING_FEEDRATE_Y 100
-#define HOMING_FEEDRATE_Z 4
+#define HOMING_FEEDRATE_Z 2
 #define HOMING_ORDER HOME_ORDER_XYZ
 #define ZHOME_MIN_TEMPERATURE 0
 #define ZHOME_HEAT_ALL 1
@@ -338,14 +365,14 @@ It also can add a delay to wait for spindle to run on full speed.
 #define STEP_DOUBLER_FREQUENCY 12000
 #define ALLOW_QUADSTEPPING 1
 #define DOUBLE_STEP_DELAY 0 // time in microseconds
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 1000
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1000
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 100
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 2000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 2000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 100
-#define INTERPOLATE_ACCELERATION_WITH_Z 1
-#define ACCELERATION_FACTOR_TOP 50
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 400
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 400
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 400
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 400
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 400
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 400
+#define INTERPOLATE_ACCELERATION_WITH_Z 0
+#define ACCELERATION_FACTOR_TOP 100
 #define MAX_JERK 20
 #define MAX_ZJERK 0.3
 #define PRINTLINE_CACHE_SIZE 16
@@ -383,9 +410,10 @@ It also can add a delay to wait for spindle to run on full speed.
 #define ACK_WITH_LINENUMBER 1
 #define WAITING_IDENTIFIER "wait"
 #define ECHO_ON_EXECUTE 1
-#define EEPROM_MODE 1
+#define EEPROM_MODE 2
 #undef PS_ON_PIN
-#define PS_ON_PIN ORIG_PS_ON_PIN
+#define PS_ON_PIN -1
+#define STARTUP_GCODE "G28 ; home all axes G1 Z5 F5000 ; lift nozzle;"
 #define JSON_OUTPUT 0
 
 /* ======== Servos =======
@@ -406,7 +434,7 @@ WARNING: Servos can draw a considerable amount of current. Make sure your system
 #define UI_SERVO_CONTROL 0
 #define FAN_KICKSTART_TIME  200
 
-        #define FEATURE_WATCHDOG 0
+        #define FEATURE_WATCHDOG 1
 
 // #################### Z-Probing #####################
 
@@ -469,38 +497,38 @@ WARNING: Servos can draw a considerable amount of current. Make sure your system
 #define FEATURE_CHECKSUM_FORCED 0
 #define FEATURE_FAN_CONTROL 1
 #define FEATURE_FAN2_CONTROL 0
-#define FEATURE_CONTROLLER 24
-#define ADC_KEYPAD_PIN 1
+#define FEATURE_CONTROLLER 11
+#define ADC_KEYPAD_PIN -1
 #define LANGUAGE_EN_ACTIVE 1
 #define LANGUAGE_DE_ACTIVE 0
 #define LANGUAGE_NL_ACTIVE 0
 #define LANGUAGE_PT_ACTIVE 0
 #define LANGUAGE_IT_ACTIVE 0
-#define LANGUAGE_ES_ACTIVE 0
+#define LANGUAGE_ES_ACTIVE 1
 #define LANGUAGE_FI_ACTIVE 0
 #define LANGUAGE_SE_ACTIVE 0
 #define LANGUAGE_FR_ACTIVE 0
 #define LANGUAGE_CZ_ACTIVE 0
 #define LANGUAGE_PL_ACTIVE 0
 #define LANGUAGE_TR_ACTIVE 0
-#define UI_PRINTER_NAME "P802_8_V1.5"
-#define UI_PRINTER_COMPANY "Zonestar 3D printer"
-#define UI_PAGES_DURATION 4000
+#define UI_PRINTER_NAME "P802M"
+#define UI_PRINTER_COMPANY "TRONXY"
+#define UI_PAGES_DURATION 3000
 #define UI_ANIMATION 0
 #define UI_SPEEDDEPENDENT_POSITIONING 0
 #define UI_DISABLE_AUTO_PAGESWITCH 1
-#define UI_AUTORETURN_TO_MENU_AFTER 30000
+#define UI_AUTORETURN_TO_MENU_AFTER 60000
 #define FEATURE_UI_KEYS 0
 #define UI_ENCODER_SPEED 1
 #define UI_REVERSE_ENCODER 0
-#define UI_KEY_BOUNCETIME 20
+#define UI_KEY_BOUNCETIME 10
 #define UI_KEY_FIRST_REPEAT 500
 #define UI_KEY_REDUCE_REPEAT 50
 #define UI_KEY_MIN_REPEAT 50
 #define FEATURE_BEEPER 0
 #define CASE_LIGHTS_PIN -1
 #define CASE_LIGHT_DEFAULT_ON 1
-#define UI_START_SCREEN_DELAY 3000
+#define UI_START_SCREEN_DELAY 2000
 #define UI_DYNAMIC_ENCODER_SPEED 1
         /**
 Beeper sound definitions for short beeps during key actions
@@ -510,7 +538,7 @@ Values must be in range 1..255
 */
 #define BEEPER_SHORT_SEQUENCE 2,2
 #define BEEPER_LONG_SEQUENCE 8,8
-#define UI_SET_PRESET_HEATED_BED_TEMP_PLA 60
+#define UI_SET_PRESET_HEATED_BED_TEMP_PLA 0
 #define UI_SET_PRESET_EXTRUDER_TEMP_PLA   190
 #define UI_SET_PRESET_HEATED_BED_TEMP_ABS 110
 #define UI_SET_PRESET_EXTRUDER_TEMP_ABS   240
@@ -524,28 +552,7 @@ Values must be in range 1..255
 
 #define NUM_MOTOR_DRIVERS 0
 
-//----------------------------------------------------------------------------------
-// Sample configuration for Zonestar P802M 3D printer and similar models.
-// http://forum.repetier.com/discussion/1105/melzi-v2-0-with-lcd2004-and-5-keys
-//----------------------------------------------------------------------------------
-// A bit optimized settings for Zonestar 3D printer with Melzi board. Most important
-// settings are steps/mm, Z direction inversion, homing order, digital pin 12 for
-// bed heater (instead of default 10 set in Melzi configuration), Zonestar display
-// controller with analog pin 1 for keypad. This firmware is a bit faster than
-// Repetier firmware defaults.
-//
-// Do not forget to update X/Y/Z min positions for your printer (it homes with
-// negative values for X/Y) and then set X/Y/Z max travel so the printer does not
-// kick max ends (all set from General tab of web configurator or later via EEPROM
-// editor).
-//
-// Make sure you use this firmware settings and not previously stored ones. M502
-// (restore firmware defaults) and M500 (save to EEPROM) commands may help.
-//
-// By default the Enter/OK (center) key is mapped to the same action
-// as the Right one (ACTION_OK). It can be redefined here if desired:
-//#define ADC_KEYPAD_CENTER_ACTION UI_ACTION_TOP_MENU
-//----------------------------------------------------------------------------------
+
 
 #endif
 
@@ -560,19 +567,19 @@ Values must be in range 1..255
     "bluetoothBaudrate": 115200,
     "xStepsPerMM": 100,
     "yStepsPerMM": 100,
-    "zStepsPerMM": 1600,
-    "xInvert": 0,
+    "zStepsPerMM": 400,
+    "xInvert": "1",
     "xInvertEnable": 0,
-    "eepromMode": 1,
-    "yInvert": 0,
+    "eepromMode": 2,
+    "yInvert": "1",
     "yInvertEnable": 0,
-    "zInvert": "1",
+    "zInvert": "0",
     "zInvertEnable": 0,
     "extruder": [
         {
             "id": 0,
-            "heatManager": 3,
-            "pidDriveMin": 40,
+            "heatManager": 1,
+            "pidDriveMin": 50,
             "pidDriveMax": 230,
             "pidMax": 255,
             "sensorType": 1,
@@ -580,7 +587,7 @@ Values must be in range 1..255
             "heaterPin": "HEATER_0_PIN",
             "maxFeedrate": 50,
             "startFeedrate": 20,
-            "invert": "0",
+            "invert": "1",
             "invertEnable": "0",
             "acceleration": 5000,
             "watchPeriod": 1,
@@ -592,16 +599,16 @@ Values must be in range 1..255
             "waitRetractTemp": 150,
             "waitRetractUnits": 0,
             "waitRetract": 0,
-            "stepsPerMM": 95,
+            "stepsPerMM": 90,
             "coolerPin": -1,
             "coolerSpeed": 255,
             "selectCommands": "",
             "deselectCommands": "",
-            "xOffset": 0,
-            "yOffset": 0,
+            "xOffset": -22,
+            "yOffset": 5,
             "zOffset": 0,
-            "xOffsetSteps": 0,
-            "yOffsetSteps": 0,
+            "xOffsetSteps": -2200,
+            "yOffsetSteps": 500,
             "zOffsetSteps": 0,
             "stepper": {
                 "name": "Extruder 0",
@@ -610,7 +617,7 @@ Values must be in range 1..255
                 "enable": "ORIG_E0_ENABLE_PIN"
             },
             "advanceBacklashSteps": 0,
-            "decoupleTestPeriod": 20,
+            "decoupleTestPeriod": 12,
             "jamPin": -1,
             "jamPullup": "0",
             "mirror": "0",
@@ -631,20 +638,20 @@ Values must be in range 1..255
     "xMaxEndstop": 0,
     "yMaxEndstop": 0,
     "zMaxEndstop": 0,
-    "motherboard": 63,
+    "motherboard": 33,
     "driveSystem": 0,
     "xMaxSpeed": 400,
     "xHomingSpeed": 100,
-    "xTravelAcceleration": 2000,
-    "xPrintAcceleration": 1000,
+    "xTravelAcceleration": 400,
+    "xPrintAcceleration": 400,
     "yMaxSpeed": 400,
     "yHomingSpeed": 100,
-    "yTravelAcceleration": 2000,
-    "yPrintAcceleration": 1000,
-    "zMaxSpeed": 5,
-    "zHomingSpeed": 4,
-    "zTravelAcceleration": 100,
-    "zPrintAcceleration": 100,
+    "yTravelAcceleration": 400,
+    "yPrintAcceleration": 400,
+    "zMaxSpeed": 4,
+    "zHomingSpeed": 2,
+    "zTravelAcceleration": 400,
+    "zPrintAcceleration": 400,
     "xMotor": {
         "name": "X motor",
         "step": "ORIG_X_STEP_PIN",
@@ -669,12 +676,12 @@ Values must be in range 1..255
     "backlashZ": 0,
     "stepperInactiveTime": 360,
     "maxInactiveTime": 0,
-    "xMinPos": -38,
-    "yMinPos": -7,
+    "xMinPos": 0,
+    "yMinPos": 0,
     "zMinPos": 0,
-    "xLength": 245,
-    "yLength": 210,
-    "zLength": 230,
+    "xLength": 220,
+    "yLength": 220,
+    "zLength": 240,
     "alwaysCheckEndstops": "1",
     "disableX": "0",
     "disableY": "0",
@@ -683,8 +690,8 @@ Values must be in range 1..255
     "xHomeDir": "-1",
     "yHomeDir": "-1",
     "zHomeDir": "-1",
-    "xEndstopBack": 1,
-    "yEndstopBack": 1,
+    "xEndstopBack": 20,
+    "yEndstopBack": 10,
     "zEndstopBack": 0,
     "deltaSegmentsPerSecondPrint": 180,
     "deltaSegmentsPerSecondTravel": 70,
@@ -757,27 +764,27 @@ Values must be in range 1..255
     "servo1Pin": -1,
     "servo2Pin": -1,
     "servo3Pin": -1,
-    "featureWatchdog": "0",
+    "featureWatchdog": "1",
     "hasHeatedBed": "1",
     "enableZProbing": "0",
     "extrudeMaxLength": 160,
     "homeOrder": "HOME_ORDER_XYZ",
-    "featureController": 24,
-    "uiPrinterName": "P802_8_V1.5",
-    "uiPrinterCompany": "Zonestar 3D printer",
-    "uiPagesDuration": 4000,
+    "featureController": 11,
+    "uiPrinterName": "P802M",
+    "uiPrinterCompany": "TRONXY",
+    "uiPagesDuration": 3000,
     "uiAnimation": "0",
     "uiDisablePageswitch": "1",
-    "uiAutoReturnAfter": 30000,
+    "uiAutoReturnAfter": 60000,
     "featureKeys": "0",
     "uiEncoderSpeed": 1,
     "uiReverseEncoder": "0",
-    "uiKeyBouncetime": 20,
+    "uiKeyBouncetime": 10,
     "uiKeyFirstRepeat": 500,
     "uiKeyReduceRepeat": 50,
     "uiKeyMinRepeat": 50,
     "featureBeeper": "0",
-    "uiPresetBedTempPLA": 60,
+    "uiPresetBedTempPLA": 0,
     "uiPresetBedABS": 110,
     "uiPresetExtruderPLA": 190,
     "uiPresetExtruderABS": 240,
@@ -788,10 +795,10 @@ Values must be in range 1..255
     "uiExtruderFeedrate": 2,
     "uiExtruderRetractDistance": 3,
     "uiSpeeddependentPositioning": "0",
-    "maxBedTemperature": 120,
+    "maxBedTemperature": 110,
     "bedSensorType": 1,
     "bedSensorPin": "TEMP_1_PIN",
-    "bedHeaterPin": 12,
+    "bedHeaterPin": "HEATER_1_PIN",
     "bedHeatManager": 0,
     "bedUpdateInterval": 5000,
     "bedPidDriveMin": 80,
@@ -858,7 +865,7 @@ Values must be in range 1..255
     "featureFanControl": "1",
     "fanPin": "ORIG_FAN_PIN",
     "featureFan2Control": "0",
-    "fan2Pin": "ORIG_FAN2_PIN",
+    "fan2Pin": "HEATER_1_PIN",
     "fanThermoPin": -1,
     "fanThermoMinPWM": 128,
     "fanThermoMaxPWM": 255,
@@ -891,10 +898,10 @@ Values must be in range 1..255
     "sdSupport": "0",
     "sdCardDetectPin": -1,
     "sdCardDetectInverted": "0",
-    "uiStartScreenDelay": 3000,
+    "uiStartScreenDelay": 2000,
     "xEndstopBackMove": 5,
     "yEndstopBackMove": 5,
-    "zEndstopBackMove": 2,
+    "zEndstopBackMove": 0,
     "xEndstopRetestFactor": 3,
     "yEndstopRetestFactor": 3,
     "zEndstopRetestFactor": 3,
@@ -907,11 +914,11 @@ Values must be in range 1..255
     "deltaHomeOnPower": "0",
     "fanBoardPin": -1,
     "heaterPWMSpeed": 0,
-    "featureBabystepping": "1",
+    "featureBabystepping": "0",
     "babystepMultiplicator": 1,
     "pdmForHeater": "0",
     "pdmForCooler": "0",
-    "psOn": "ORIG_PS_ON_PIN",
+    "psOn": -1,
     "mixingExtruder": "0",
     "decouplingTestMaxHoldVariance": 20,
     "decouplingTestMinTempRise": 1,
@@ -1035,7 +1042,7 @@ Values must be in range 1..255
             "enablePin": -1
         }
     ],
-    "manualConfig": "\/\/----------------------------------------------------------------------------------\n\/\/ Sample configuration for Zonestar P802M 3D printer and similar models.\n\/\/ http:\/\/forum.repetier.com\/discussion\/1105\/melzi-v2-0-with-lcd2004-and-5-keys\n\/\/----------------------------------------------------------------------------------\n\/\/ A bit optimized settings for Zonestar 3D printer with Melzi board. Most important\n\/\/ settings are steps\/mm, Z direction inversion, homing order, digital pin 12 for\n\/\/ bed heater (instead of default 10 set in Melzi configuration), Zonestar display\n\/\/ controller with analog pin 1 for keypad. This firmware is a bit faster than\n\/\/ Repetier firmware defaults.\n\/\/\n\/\/ Do not forget to update X\/Y\/Z min positions for your printer (it homes with\n\/\/ negative values for X\/Y) and then set X\/Y\/Z max travel so the printer does not\n\/\/ kick max ends (all set from General tab of web configurator or later via EEPROM\n\/\/ editor).\n\/\/\n\/\/ Make sure you use this firmware settings and not previously stored ones. M502\n\/\/ (restore firmware defaults) and M500 (save to EEPROM) commands may help.\n\/\/\n\/\/ By default the Enter\/OK (center) key is mapped to the same action\n\/\/ as the Right one (ACTION_OK). It can be redefined here if desired:\n\/\/#define ADC_KEYPAD_CENTER_ACTION UI_ACTION_TOP_MENU\n\/\/----------------------------------------------------------------------------------",
+    "manualConfig": "",
     "zHomeMinTemperature": 0,
     "zHomeXPos": 999999,
     "zHomeYPos": 999999,
@@ -1049,15 +1056,15 @@ Values must be in range 1..255
     "langNL": "0",
     "langPT": "0",
     "langIT": "0",
-    "langES": "0",
+    "langES": "1",
     "langFI": "0",
     "langSE": "0",
     "langFR": "0",
     "langCZ": "0",
     "langPL": "0",
     "langTR": "0",
-    "interpolateAccelerationWithZ": 1,
-    "accelerationFactorTop": 50,
+    "interpolateAccelerationWithZ": 0,
+    "accelerationFactorTop": 100,
     "bendingCorrectionA": 0,
     "bendingCorrectionB": 0,
     "bendingCorrectionC": 0,
@@ -1073,7 +1080,7 @@ Values must be in range 1..255
     "cncEnableWith": "1",
     "cncDirectionPin": -1,
     "cncDirectionCW": "1",
-    "startupGCode": "",
+    "startupGCode": "G28 ; home all axes G1 Z5 F5000 ; lift nozzle;",
     "jsonOutput": "0",
     "bedLevelingMethod": 0,
     "bedCorrectionMethod": 0,
@@ -1087,7 +1094,7 @@ Values must be in range 1..255
     "bedMotor3Y": 200,
     "zProbeRequiresHeating": "0",
     "zProbeMinTemperature": 150,
-    "adcKeypadPin": "1",
+    "adcKeypadPin": -1,
     "sharedExtruderHeater": "0",
     "extruderSwitchXYSpeed": 100,
     "dualXAxis": "0",
