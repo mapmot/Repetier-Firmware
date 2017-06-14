@@ -98,7 +98,7 @@ What display type do you use?
                If you have Sanguino and want to use the library, you need to have Arduino 023 or older. (13.04.2012)
 5 = U8G supported display
 */
-#define UI_DISPLAY_TYPE 5
+#define UI_DISPLAY_TYPE DISPLAY_I2C
 
 #if UI_DISPLAY_TYPE == DISPLAY_U8G // Special case for graphic displays
 
@@ -152,11 +152,11 @@ What display type do you use?
 /** Number of columns per row
 Typical values are 16 and 20
 */
-#define UI_COLS 20
+#define UI_COLS 16
 /**
 Rows of your display. 2 or 4
 */
-#define UI_ROWS 4
+#define UI_ROWS 2
 #endif // UI_DISPLAY_TYPE
 
 /* What type of chip is used for I2C communication
@@ -166,13 +166,13 @@ Rows of your display. 2 or 4
 #define UI_DISPLAY_I2C_CHIPTYPE 0
 // 0x40 till 0x4e for PCF8574, 0x40 for the adafruid RGB shield, 0x40 - 0x4e for MCP23017
 // Official addresses have a value half as high!
-#define UI_DISPLAY_I2C_ADDRESS 0x4e
+#define UI_DISPLAY_I2C_ADDRESS 0x7e
 // For MCP 23017 define which pins should be output
 #define UI_DISPLAY_I2C_OUTPUT_PINS 65504
 // Set the output mask that is or'd over the output data. This is needed to activate
 // a backlight switched over the I2C.
 // The adafruit RGB shields enables a light if the bit is not set. Bits 6-8 are used for backlight.
-#define UI_DISPLAY_I2C_OUTPUT_START_MASK 0
+#define UI_DISPLAY_I2C_OUTPUT_START_MASK 0x8
 // For MCP which inputs are with pullup. 31 = pins 0-4 for adafruid rgb shield buttons
 #define UI_DISPLAY_I2C_PULLUP 31
 /* How fast should the I2C clock go. The PCF8574 work only with the lowest setting 100000.
@@ -182,17 +182,17 @@ A MCP23017 can run also with 400000 Hz */
 Define the pin
 */
 #if UI_DISPLAY_TYPE == DISPLAY_I2C // I2C Pin configuration
-#define UI_DISPLAY_RS_PIN _BV(4)
-#define UI_DISPLAY_RW_PIN _BV(5)
-#define UI_DISPLAY_ENABLE_PIN _BV(6)
-#define UI_DISPLAY_D0_PIN _BV(0)
-#define UI_DISPLAY_D1_PIN _BV(1)
-#define UI_DISPLAY_D2_PIN _BV(2)
-#define UI_DISPLAY_D3_PIN _BV(3)
-#define UI_DISPLAY_D4_PIN _BV(0)
-#define UI_DISPLAY_D5_PIN _BV(1)
-#define UI_DISPLAY_D6_PIN _BV(2)
-#define UI_DISPLAY_D7_PIN _BV(3)
+#define UI_DISPLAY_RS_PIN _BV(0)
+#define UI_DISPLAY_RW_PIN _BV(1)
+#define UI_DISPLAY_ENABLE_PIN _BV(2)
+#define UI_DISPLAY_D0_PIN _BV(4)
+#define UI_DISPLAY_D1_PIN _BV(5)
+#define UI_DISPLAY_D2_PIN _BV(6)
+#define UI_DISPLAY_D3_PIN _BV(7)
+#define UI_DISPLAY_D4_PIN _BV(4)
+#define UI_DISPLAY_D5_PIN _BV(5)
+#define UI_DISPLAY_D6_PIN _BV(6)
+#define UI_DISPLAY_D7_PIN _BV(7)
 
 // uncomment if your using led to indicated the bed is hot
 //#define UI_I2C_HEATBED_LED    _BV(8)
