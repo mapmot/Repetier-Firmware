@@ -245,7 +245,7 @@ Define the pin
 0 = No keys attached - disables also menu
 1 = Some keys attached
 */
-#define UI_HAS_KEYS 0
+#define UI_HAS_KEYS 1
 
 
 /** \brief Is a back key present.
@@ -253,7 +253,7 @@ Define the pin
 If you have menus enabled, you need a method to leave it. If you have a back key, you can always go one level higher.
 Without a back key, you need to navigate to the back entry in the menu. Setting this value to 1 removes the back entry.
 */
-#define UI_HAS_BACK_KEY 1
+#define UI_HAS_BACK_KEY 0
 
 /* Then you have the next/previous keys more like up/down keys, it may be more intuitive to change the direction you skip through the menus.
 If you set it to true, next will go to previous menu instead of the next menu.
@@ -371,14 +371,14 @@ const int matrixActions[] PROGMEM = UI_MATRIX_ACTIONS;
 void uiInitKeys() {
 #if UI_HAS_KEYS!=0
   //UI_KEYS_INIT_CLICKENCODER_LOW(33,31); // click encoder on pins 47 and 45. Phase is connected with gnd for signals.
-  UI_KEYS_INIT_BUTTON_LOW(4); // push button, connects gnd to pin
-  UI_KEYS_INIT_BUTTON_LOW(5);
-  UI_KEYS_INIT_BUTTON_LOW(6);
-  UI_KEYS_INIT_BUTTON_LOW(11);
-  UI_KEYS_INIT_BUTTON_LOW(42);
+//  UI_KEYS_INIT_BUTTON_LOW(4); // push button, connects gnd to pin
+//  UI_KEYS_INIT_BUTTON_LOW(5);
+//  UI_KEYS_INIT_BUTTON_LOW(6);
+//  UI_KEYS_INIT_BUTTON_LOW(11);
+//  UI_KEYS_INIT_BUTTON_LOW(42);
 
-//  UI_KEYS_INIT_CLICKENCODER_LOW(47,45); // click encoder on pins 47 and 45. Phase is connected with gnd for signals.
-//  UI_KEYS_INIT_BUTTON_LOW(43); // push button, connects gnd to pin
+  UI_KEYS_INIT_CLICKENCODER_LOW(28,29); // click encoder on pins 47 and 45. Phase is connected with gnd for signals.
+  UI_KEYS_INIT_BUTTON_LOW(30); // push button, connects gnd to pin
 //  UI_KEYS_INIT_MATRIX(32,47,45,43,41,39,37,35);
 #endif
 }
@@ -386,13 +386,13 @@ void uiCheckKeys(uint16_t &action) {
 #if UI_HAS_KEYS!=0
 
  //UI_KEYS_CLICKENCODER_LOW_REV(33,31); // click encoder on pins 47 and 45. Phase is connected with gnd for signals.
- UI_KEYS_BUTTON_LOW(4,UI_ACTION_OK); // push button, connects gnd to pin
- UI_KEYS_BUTTON_LOW(5,UI_ACTION_NEXT); // push button, connects gnd to pin
- UI_KEYS_BUTTON_LOW(6,UI_ACTION_PREVIOUS); // push button, connects gnd to pin
- UI_KEYS_BUTTON_LOW(11,UI_ACTION_BACK); // push button, connects gnd to pin
- UI_KEYS_BUTTON_LOW(42,UI_ACTION_SD_PRINT ); // push button, connects gnd to pin
-//  UI_KEYS_CLICKENCODER_LOW_REV(47,45); // click encoder on pins 47 and 45. Phase is connected with gnd for signals.
-//  UI_KEYS_BUTTON_LOW(43,UI_ACTION_OK); // push button, connects gnd to pin
+// UI_KEYS_BUTTON_LOW(4,UI_ACTION_OK); // push button, connects gnd to pin
+// UI_KEYS_BUTTON_LOW(5,UI_ACTION_NEXT); // push button, connects gnd to pin
+// UI_KEYS_BUTTON_LOW(6,UI_ACTION_PREVIOUS); // push button, connects gnd to pin
+// UI_KEYS_BUTTON_LOW(11,UI_ACTION_BACK); // push button, connects gnd to pin
+// UI_KEYS_BUTTON_LOW(42,UI_ACTION_SD_PRINT ); // push button, connects gnd to pin
+  UI_KEYS_CLICKENCODER_LOW_REV(28,29); // click encoder on pins 47 and 45. Phase is connected with gnd for signals.
+  UI_KEYS_BUTTON_LOW(30,UI_ACTION_OK); // push button, connects gnd to pin
 #endif
 }
 inline void uiCheckSlowEncoder() {
