@@ -237,7 +237,7 @@ controlled by settings in extruder 0 definition. */
 #define EXT0_Y_OFFSET 0
 #define EXT0_Z_OFFSET 0
 // for skeinforge 40 and later, steps to pull the plastic 1 mm inside the extruder, not out.  Overridden if EEPROM activated.
-#define EXT0_STEPS_PER_MM 687.909
+#define EXT0_STEPS_PER_MM 467.375
 // What type of sensor is used?
 // 0 is no thermistor/temperature control
 // 1 is 100k thermistor (Epcos B57560G0107F000 - RepRap-Fab.org and many other)
@@ -270,7 +270,7 @@ controlled by settings in extruder 0 definition. */
 #define EXT0_STEP_PIN E0_STEP_PIN
 #define EXT0_DIR_PIN E0_DIR_PIN
 // set to false/true for normal / inverse direction
-#define EXT0_INVERSE false
+#define EXT0_INVERSE true
 #define EXT0_ENABLE_PIN E0_ENABLE_PIN
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
 #define EXT0_ENABLE_ON 0
@@ -284,10 +284,10 @@ controlled by settings in extruder 0 definition. */
 // length of filament pulled inside the heater. For repsnap or older
 // skeinforge use higher values.
 //  Overridden if EEPROM activated.
-#define EXT0_MAX_FEEDRATE 30
+#define EXT0_MAX_FEEDRATE 150
 // Feedrate from halted extruder in mm/s
 //  Overridden if EEPROM activated.
-#define EXT0_MAX_START_FEEDRATE 10
+#define EXT0_MAX_START_FEEDRATE 5
 // Acceleration in mm/s^2
 //  Overridden if EEPROM activated.
 #define EXT0_MAX_ACCELERATION 4000
@@ -321,12 +321,12 @@ A good start is 30 lower then the optimal value. You need to leave room for cool
 */
 #define EXT0_PID_INTEGRAL_DRIVE_MIN 60
 /** P-gain.  Overridden if EEPROM activated. */
-#define EXT0_PID_PGAIN_OR_DEAD_TIME   9.9300
+#define EXT0_PID_PGAIN_OR_DEAD_TIME   20.520
 /** I-gain. Overridden if EEPROM activated.
 */
-#define EXT0_PID_I   0.8400
+#define EXT0_PID_I   1.800
 /** Dgain.  Overridden if EEPROM activated.*/
-#define EXT0_PID_D 29.29
+#define EXT0_PID_D 58.470
 // maximum time the heater is can be switched on. Max = 255.  Overridden if EEPROM activated.
 #define EXT0_PID_MAX 255
 /** \brief Faktor for the advance algorithm. 0 disables the algorithm.  Overridden if EEPROM activated.
@@ -490,7 +490,7 @@ M140 command, after a given temperature is reached. */
 #define RETRACT_DURING_HEATUP 1
 
 /** Allow retraction with G10/G11 removing requirement for retraction setting in slicer. Also allows filament change if lcd is configured. */
-#define FEATURE_RETRACTION 1
+#define FEATURE_RETRACTION 0
 /** auto-retract converts pure extrusion moves into retractions. Beware that
  simple extrusion e.g. over Repetier-Host will then not work! */
 #define AUTORETRACT_ENABLED 0
@@ -715,7 +715,7 @@ Heat manager for heated bed:
 2 = Bang Bang, limited check every HEATED_BED_SET_INTERVAL. Use this with relay-driven beds to save life time
 3 = dead time control
 */
-#define HEATED_BED_HEAT_MANAGER 1
+#define HEATED_BED_HEAT_MANAGER 2
 /** \brief The maximum value, I-gain can contribute to the output.
 The precise values may differ for different nozzle/resistor combination.
  Overridden if EEPROM activated.
@@ -730,11 +730,11 @@ A good start is 30 lower then the optimal value. You need to leave room for cool
 */
 #define HEATED_BED_PID_INTEGRAL_DRIVE_MIN 80
 /** P-gain.  Overridden if EEPROM activated. */
-#define HEATED_BED_PID_PGAIN_OR_DEAD_TIME   102.700
+#define HEATED_BED_PID_PGAIN_OR_DEAD_TIME   196.000
 /** I-gain  Overridden if EEPROM activated.*/
-#define HEATED_BED_PID_IGAIN   12.270
+#define HEATED_BED_PID_IGAIN   33.020
 /** Dgain.  Overridden if EEPROM activated.*/
-#define HEATED_BED_PID_DGAIN 214.950
+#define HEATED_BED_PID_DGAIN 290.000
 // maximum time the heater can be switched on. Max = 255.  Overridden if EEPROM activated.
 #define HEATED_BED_PID_MAX 255
 // Time to see a temp. change when fully heating. Consider that beds at higher temp. need longer to rise and cold
@@ -915,9 +915,9 @@ on this endstop.
 // For delta robot Z_MAX_LENGTH is the maximum travel of the towers and should be set to the distance between the hotend
 // and the platform when the printer is at its home position.
 // If EEPROM is enabled these values will be overridden with the values in the EEPROM
-#define X_MAX_LENGTH 200
-#define Y_MAX_LENGTH 200
-#define Z_MAX_LENGTH 558.200
+#define X_MAX_LENGTH 145
+#define Y_MAX_LENGTH 145
+#define Z_MAX_LENGTH 589.950
 // Coordinates for the minimum axis. Can also be negative if you want to have the bed start at 0 and the printer can go to the left side
 // of the bed. Maximum coordinate is given by adding the above X_MAX_LENGTH values.
 #define X_MIN_POS 0
@@ -950,7 +950,7 @@ on this endstop.
 #if DRIVE_SYSTEM==DELTA
 /** \brief Delta rod length (mm)
 */
-#define DELTA_DIAGONAL_ROD 341.375 // mm
+#define DELTA_DIAGONAL_ROD 329.000 // mm
 
 
 /*  =========== Parameter essential for delta calibration ===================
@@ -977,14 +977,14 @@ on this endstop.
 #define DELTA_ALPHA_C 90
 
 /** Correct radius by this value for each column. Perfect builds have 0 everywhere. */
-#define DELTA_RADIUS_CORRECTION_A -0.500
-#define DELTA_RADIUS_CORRECTION_B 0.159
+#define DELTA_RADIUS_CORRECTION_A 0.000
+#define DELTA_RADIUS_CORRECTION_B 0.000
 #define DELTA_RADIUS_CORRECTION_C 0.000
 
 /** Correction of the default diagonal size. Value gets added.*/
 #define DELTA_DIAGONAL_CORRECTION_A 0.000
-#define DELTA_DIAGONAL_CORRECTION_B 0.344
-#define DELTA_DIAGONAL_CORRECTION_C -0.899
+#define DELTA_DIAGONAL_CORRECTION_B 0.000
+#define DELTA_DIAGONAL_CORRECTION_C 0.000
 
 /** Max. radius (mm) the printer should be able to reach. */
 #define DELTA_MAX_RADIUS 200
@@ -1010,7 +1010,7 @@ on this endstop.
   measured from the center of the print area to the vertical smooth tower.
   Alternately set this to the pivot to pivot horizontal rod distance, when head is at (0,0)
 */
-#define PRINTER_RADIUS 174.498
+#define PRINTER_RADIUS 171.000
 
 /** 1 for more precise delta moves. 0 for faster computation.
 Needs a bit more computation time. */
@@ -1025,9 +1025,9 @@ If you don't do it, make sure to home first before your first move.
 
 /** To allow software correction of misaligned endstops, you can set the correction in steps here. If you have EEPROM enabled
 you can also change the values online and autoleveling will store the results here. */
-#define DELTA_X_ENDSTOP_OFFSET_STEPS 150
-#define DELTA_Y_ENDSTOP_OFFSET_STEPS 200
-#define DELTA_Z_ENDSTOP_OFFSET_STEPS 0
+#define DELTA_X_ENDSTOP_OFFSET_STEPS 0
+#define DELTA_Y_ENDSTOP_OFFSET_STEPS 100
+#define DELTA_Z_ENDSTOP_OFFSET_STEPS 110
 
 #endif
 #if DRIVE_SYSTEM==TUGA
@@ -1069,9 +1069,9 @@ Mega. Used only for nonlinear systems like delta or tuga. */
 #define MAX_FEEDRATE_Z 200
 
 /** Home position speed in mm/s. Overridden if EEPROM activated. */
-#define HOMING_FEEDRATE_X 80
-#define HOMING_FEEDRATE_Y 80
-#define HOMING_FEEDRATE_Z 80
+#define HOMING_FEEDRATE_X 100
+#define HOMING_FEEDRATE_Y 100
+#define HOMING_FEEDRATE_Z 100
 
 /** Set order of axis homing. Use HOME_ORDER_XYZ and replace XYZ with your order. 
  * If you measure Z with your extruder tip you need a hot extruder to get right measurement. In this
@@ -1079,7 +1079,7 @@ Mega. Used only for nonlinear systems like delta or tuga. */
  * first a z home to get some reference, then raise to ZHOME_HEAT_HEIGHT do xy homing and then after
  * heating to minimum ZHOME_MIN_TEMPERATURE will z home again for correct height.   
  * */
-#define HOMING_ORDER HOME_ORDER_ZXY
+#define HOMING_ORDER HOME_ORDER_XYZ
 // Used for homing order HOME_ORDER_ZXYTZ
 #define ZHOME_MIN_TEMPERATURE 0
 // needs to heat all extruders (1) or only current extruder (0)
@@ -1143,14 +1143,14 @@ for some printers causing an early stall.
 /** \brief X, Y, Z max acceleration in mm/s^2 for printing moves or retracts. Make sure your printer can go that high!
  Overridden if EEPROM activated.
 */
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 1000
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1000
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1000
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 3000
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 3000
 
 /** \brief X, Y, Z max acceleration in mm/s^2 for travel moves.  Overridden if EEPROM activated.*/
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 2000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 2000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 2000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 5000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 5000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 5000
 /** If you print on a moving bed, it can become more shaky the higher and bigger
  your print gets. Therefore it might be helpfull to reduce acceleration with
  increasing print height. You can define here how acceleration should change.
@@ -1188,7 +1188,7 @@ Corner can be printed with full speed of 50 mm/s
 
 Overridden if EEPROM activated.
 */
-#define MAX_JERK 40.0
+#define MAX_JERK 30.0
 #define MAX_ZJERK 0.3
 
 /** \brief Number of moves we can cache in advance.
