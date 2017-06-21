@@ -87,16 +87,19 @@ To override EEPROM settings with config settings, set EEPROM_MODE 0
 // Unique One rev. A          = 88
 // User layout defined in userpins.h = 999
 
-#define MOTHERBOARD 63
+#define MOTHERBOARD 33
 
 #include "pins.h"
+
+#define Y_MIN_PIN          -1 //14
+#define Y_MAX_PIN          15
+
+#define Z_MIN_PIN          -1 //18
+#define Z_MAX_PIN          14 //19
 
 // Override pin definitions from pins.h
 //#define FAN_PIN   4  // Extruder 2 uses the default fan output, so move to an other pin
 //#define EXTERNALSERIAL  use Arduino serial library instead of build in. Requires more ram, has only 63 byte input buffer.
-#define HEATER_1_PIN    12
-#define LED_PIN         27
-#define PS_ON_PIN       30
 
 /*
 We can connect BlueTooth to serial converter module directly to boards based on AtMega2560 or AtMega1280 and some boards based on AtMega2561, AtMega1281 or AtMega1284p
@@ -237,7 +240,7 @@ controlled by settings in extruder 0 definition. */
 #define EXT0_Y_OFFSET 0
 #define EXT0_Z_OFFSET 0
 // for skeinforge 40 and later, steps to pull the plastic 1 mm inside the extruder, not out.  Overridden if EEPROM activated.
-#define EXT0_STEPS_PER_MM 687.909
+#define EXT0_STEPS_PER_MM 467.375
 // What type of sensor is used?
 // 0 is no thermistor/temperature control
 // 1 is 100k thermistor (Epcos B57560G0107F000 - RepRap-Fab.org and many other)
@@ -262,7 +265,7 @@ controlled by settings in extruder 0 definition. */
 // 100 is AD595
 // 101 is MAX6675
 // 102 is MAX31855
-#define EXT0_TEMPSENSOR_TYPE 8
+#define EXT0_TEMPSENSOR_TYPE 1
 // Analog input pin for reading temperatures or pin enabling SS for MAX6675
 #define EXT0_TEMPSENSOR_PIN TEMP_0_PIN
 // Which pin enables the heater
@@ -311,7 +314,7 @@ Values for starts:
 The precise values may differ for different nozzle/resistor combination.
  Overridden if EEPROM activated.
 */
-#define EXT0_PID_INTEGRAL_DRIVE_MAX 180
+#define EXT0_PID_INTEGRAL_DRIVE_MAX 196
 /** \brief lower value for integral part
 
 The I state should converge to the exact heater output needed for the target temperature.
@@ -321,12 +324,12 @@ A good start is 30 lower then the optimal value. You need to leave room for cool
 */
 #define EXT0_PID_INTEGRAL_DRIVE_MIN 60
 /** P-gain.  Overridden if EEPROM activated. */
-#define EXT0_PID_PGAIN_OR_DEAD_TIME   9.9300
+#define EXT0_PID_PGAIN_OR_DEAD_TIME   12.0700
 /** I-gain. Overridden if EEPROM activated.
 */
-#define EXT0_PID_I   0.8400
+#define EXT0_PID_I   1.1600
 /** Dgain.  Overridden if EEPROM activated.*/
-#define EXT0_PID_D 29.29
+#define EXT0_PID_D 31.3800
 // maximum time the heater is can be switched on. Max = 255.  Overridden if EEPROM activated.
 #define EXT0_PID_MAX 255
 /** \brief Faktor for the advance algorithm. 0 disables the algorithm.  Overridden if EEPROM activated.
@@ -356,7 +359,7 @@ The codes are only executed for multiple extruder when changing the extruder. */
 /** The extruder cooler is a fan to cool the extruder when it is heating. If you turn the extruder on, the fan goes on. */
 #define EXT0_EXTRUDER_COOLER_PIN -1
 /** PWM speed for the cooler fan. 0=off 255=full speed */
-#define EXT0_EXTRUDER_COOLER_SPEED 127
+#define EXT0_EXTRUDER_COOLER_SPEED 96
 /** Time in ms between a heater action and test of success. Must be more then time between turning heater on and first temp. rise! 
  * 0 will disable decoupling test */
 #define EXT0_DECOUPLE_TEST_PERIOD 18000
@@ -513,12 +516,12 @@ It will change the current extruders filament and temperature must already be hi
 you moved the extruder while changing filament during print.
 0 = no homing, 1 = xy homing, 2 = xyz homing
 */
-#define FILAMENTCHANGE_REHOME 1
+#define FILAMENTCHANGE_REHOME 2
 /** Will first retract short distance, go to change position and then retract longretract.
 Retractions speeds are taken from RETRACTION_SPEED and RETRACTION_UNDO_SPEED
 */
 #define FILAMENTCHANGE_SHORTRETRACT 30
-#define FILAMENTCHANGE_LONGRETRACT 30
+#define FILAMENTCHANGE_LONGRETRACT 700
 
 /* Define how we detect jam/out of filament
    1 = Distance between signal changes increase
@@ -556,7 +559,7 @@ need to increase this value. For one 6.8 Ohm heater 10 is ok. With two 6.8 Ohm h
 
 /** Prevent extrusions longer then x mm for one command. This is especially important if you abort a print. Then the
 extrusion position might be at any value like 23344. If you then have an G1 E-2 it will roll back 23 meter! */
-#define EXTRUDE_MAXLENGTH 700
+#define EXTRUDE_MAXLENGTH 100
 /** Skip wait, if the extruder temperature is already within x degrees. Only fixed numbers, 0 = off */
 #define SKIP_M109_IF_WITHIN 2
 
@@ -715,7 +718,7 @@ Heat manager for heated bed:
 2 = Bang Bang, limited check every HEATED_BED_SET_INTERVAL. Use this with relay-driven beds to save life time
 3 = dead time control
 */
-#define HEATED_BED_HEAT_MANAGER 1
+#define HEATED_BED_HEAT_MANAGER 2
 /** \brief The maximum value, I-gain can contribute to the output.
 The precise values may differ for different nozzle/resistor combination.
  Overridden if EEPROM activated.
@@ -730,11 +733,11 @@ A good start is 30 lower then the optimal value. You need to leave room for cool
 */
 #define HEATED_BED_PID_INTEGRAL_DRIVE_MIN 80
 /** P-gain.  Overridden if EEPROM activated. */
-#define HEATED_BED_PID_PGAIN_OR_DEAD_TIME   102.700
+#define HEATED_BED_PID_PGAIN_OR_DEAD_TIME   196.000
 /** I-gain  Overridden if EEPROM activated.*/
-#define HEATED_BED_PID_IGAIN   12.270
+#define HEATED_BED_PID_IGAIN   33.020
 /** Dgain.  Overridden if EEPROM activated.*/
-#define HEATED_BED_PID_DGAIN 214.950
+#define HEATED_BED_PID_DGAIN 290.000
 // maximum time the heater can be switched on. Max = 255.  Overridden if EEPROM activated.
 #define HEATED_BED_PID_MAX 255
 // Time to see a temp. change when fully heating. Consider that beds at higher temp. need longer to rise and cold
@@ -830,10 +833,6 @@ on this endstop.
 
 // Set the values true where you have a hardware endstop. The Pin number is taken from pins.h.
 
-#define X_MAX_PIN 18
-#define Y_MAX_PIN 19
-#define Z_MAX_PIN 20
-
 #define MIN_HARDWARE_ENDSTOP_X false
 #define MIN_HARDWARE_ENDSTOP_Y false
 #define MIN_HARDWARE_ENDSTOP_Z false
@@ -917,7 +916,7 @@ on this endstop.
 // If EEPROM is enabled these values will be overridden with the values in the EEPROM
 #define X_MAX_LENGTH 200
 #define Y_MAX_LENGTH 200
-#define Z_MAX_LENGTH 558.200
+#define Z_MAX_LENGTH 560.250
 // Coordinates for the minimum axis. Can also be negative if you want to have the bed start at 0 and the printer can go to the left side
 // of the bed. Maximum coordinate is given by adding the above X_MAX_LENGTH values.
 #define X_MIN_POS 0
@@ -950,7 +949,7 @@ on this endstop.
 #if DRIVE_SYSTEM==DELTA
 /** \brief Delta rod length (mm)
 */
-#define DELTA_DIAGONAL_ROD 341.375 // mm
+#define DELTA_DIAGONAL_ROD 347.742 // mm
 
 
 /*  =========== Parameter essential for delta calibration ===================
@@ -977,14 +976,14 @@ on this endstop.
 #define DELTA_ALPHA_C 90
 
 /** Correct radius by this value for each column. Perfect builds have 0 everywhere. */
-#define DELTA_RADIUS_CORRECTION_A -0.500
-#define DELTA_RADIUS_CORRECTION_B 0.159
-#define DELTA_RADIUS_CORRECTION_C 0.000
+#define DELTA_RADIUS_CORRECTION_A 2.250
+#define DELTA_RADIUS_CORRECTION_B -0.260
+#define DELTA_RADIUS_CORRECTION_C -1.875
 
 /** Correction of the default diagonal size. Value gets added.*/
-#define DELTA_DIAGONAL_CORRECTION_A 0.000
-#define DELTA_DIAGONAL_CORRECTION_B 0.344
-#define DELTA_DIAGONAL_CORRECTION_C -0.899
+#define DELTA_DIAGONAL_CORRECTION_A 4.375
+#define DELTA_DIAGONAL_CORRECTION_B -0.500
+#define DELTA_DIAGONAL_CORRECTION_C -3.688
 
 /** Max. radius (mm) the printer should be able to reach. */
 #define DELTA_MAX_RADIUS 200
@@ -1010,7 +1009,7 @@ on this endstop.
   measured from the center of the print area to the vertical smooth tower.
   Alternately set this to the pivot to pivot horizontal rod distance, when head is at (0,0)
 */
-#define PRINTER_RADIUS 174.498
+#define PRINTER_RADIUS 173.960
 
 /** 1 for more precise delta moves. 0 for faster computation.
 Needs a bit more computation time. */
@@ -1025,9 +1024,9 @@ If you don't do it, make sure to home first before your first move.
 
 /** To allow software correction of misaligned endstops, you can set the correction in steps here. If you have EEPROM enabled
 you can also change the values online and autoleveling will store the results here. */
-#define DELTA_X_ENDSTOP_OFFSET_STEPS 150
-#define DELTA_Y_ENDSTOP_OFFSET_STEPS 200
-#define DELTA_Z_ENDSTOP_OFFSET_STEPS 0
+#define DELTA_X_ENDSTOP_OFFSET_STEPS 0
+#define DELTA_Y_ENDSTOP_OFFSET_STEPS 110
+#define DELTA_Z_ENDSTOP_OFFSET_STEPS 90
 
 #endif
 #if DRIVE_SYSTEM==TUGA
@@ -1069,9 +1068,9 @@ Mega. Used only for nonlinear systems like delta or tuga. */
 #define MAX_FEEDRATE_Z 200
 
 /** Home position speed in mm/s. Overridden if EEPROM activated. */
-#define HOMING_FEEDRATE_X 80
-#define HOMING_FEEDRATE_Y 80
-#define HOMING_FEEDRATE_Z 80
+#define HOMING_FEEDRATE_X 60
+#define HOMING_FEEDRATE_Y 60
+#define HOMING_FEEDRATE_Z 60
 
 /** Set order of axis homing. Use HOME_ORDER_XYZ and replace XYZ with your order. 
  * If you measure Z with your extruder tip you need a hot extruder to get right measurement. In this
@@ -1079,7 +1078,7 @@ Mega. Used only for nonlinear systems like delta or tuga. */
  * first a z home to get some reference, then raise to ZHOME_HEAT_HEIGHT do xy homing and then after
  * heating to minimum ZHOME_MIN_TEMPERATURE will z home again for correct height.   
  * */
-#define HOMING_ORDER HOME_ORDER_ZXY
+#define HOMING_ORDER HOME_ORDER_XYZ
 // Used for homing order HOME_ORDER_ZXYTZ
 #define ZHOME_MIN_TEMPERATURE 0
 // needs to heat all extruders (1) or only current extruder (0)
@@ -1188,7 +1187,7 @@ Corner can be printed with full speed of 50 mm/s
 
 Overridden if EEPROM activated.
 */
-#define MAX_JERK 40.0
+#define MAX_JERK 20.0
 #define MAX_ZJERK 0.3
 
 /** \brief Number of moves we can cache in advance.
@@ -1196,7 +1195,7 @@ Overridden if EEPROM activated.
 This number of moves can be cached in advance. If you wan't to cache more, increase this. Especially on
 many very short moves the cache may go empty. The minimum value is 5.
 */
-#define PRINTLINE_CACHE_SIZE 32
+#define PRINTLINE_CACHE_SIZE 16
 
 /** \brief Low filled cache size.
 
@@ -1308,7 +1307,7 @@ matches, the stored values are used to overwrite the settings.
 IMPORTANT: With mode <>0 some changes in Configuration.h are not set any more, as they are
            taken from the EEPROM.
 */
-#define EEPROM_MODE 2
+#define EEPROM_MODE 9
 
 
 /**************** duplicate motor driver ***************
@@ -1642,7 +1641,7 @@ The following settings override uiconfig.h!
 24 or CONTROLLER_ZONESTAR = Zonestar P802M with LCD 20x4 and 5 ADC button keypad
 */
 
-#define FEATURE_CONTROLLER NO_CONTROLLER
+#define FEATURE_CONTROLLER CONTROLLER_REPRAPDISCOUNT_GLCD
 
 /* You can have one keypad connected via single analog pin as seen on
  some printers with Melzi V2.0 board, 20x4 LCD and 5 buttons keypad. This must be
@@ -1674,7 +1673,7 @@ computations, so do not enable it if your display works stable!
 //#define TRY_AUTOREPAIR_LCD_ERRORS
 
 // This is line 2 of the status display at startup. Change to your like.
-#define UI_PRINTER_NAME "Beta"
+#define UI_PRINTER_NAME "Gamma"
 #define UI_PRINTER_COMPANY "Forma"
 
 
@@ -1726,7 +1725,7 @@ same setting.
 /** \brief Lowest repeat time. */
 #define UI_KEY_MIN_REPEAT 50
 
-#define FEATURE_BEEPER 0
+#define FEATURE_BEEPER 1
 /**
 Beeper sound definitions for short beeps during key actions
 and longer beeps for important actions.

@@ -1,0 +1,68 @@
+Recv: EPR:0 1028 0 Language
+Recv: EPR:2 75 250000 Baudrate
+Recv: EPR:3 129 1308.624 Filament printed [m]
+Recv: EPR:2 125 739708 Printer active [s]
+Recv: EPR:2 79 0 Max. inactive time [ms,0=off]
+Recv: EPR:2 83 360000 Stop stepper after inactivity [ms,0=off]
+Recv: EPR:3 11 100.0000 Steps per mm
+Recv: EPR:3 23 200.000 Max. feedrate [mm/s]
+Recv: EPR:3 35 60.000 Homing feedrate [mm/s]
+Recv: EPR:3 39 20.000 Max. jerk [mm/s]
+Recv: EPR:3 133 0.000 X min pos [mm]
+Recv: EPR:3 137 0.000 Y min pos [mm]
+Recv: EPR:3 141 0.000 Z min pos [mm]
+Recv: EPR:3 145 200.000 X max length [mm]
+Recv: EPR:3 149 200.000 Y max length [mm]
+Recv: EPR:3 153 560.250 Z max length [mm]
+Recv: EPR:1 891 70 Segments/s for travel
+Recv: EPR:1 889 180 Segments/s for printing
+Recv: EPR:3 59 1000.000 Acceleration [mm/s^2]
+Recv: EPR:3 71 2000.000 Travel acceleration [mm/s^2]
+Recv: EPR:3 881 347.742 Diagonal rod length [mm]
+Recv: EPR:3 885 173.960 Horizontal rod radius at 0,0 [mm]
+Recv: EPR:3 925 200.000 Max printable radius [mm]
+Recv: EPR:1 893 0 Tower X endstop offset [steps]
+Recv: EPR:1 895 110 Tower Y endstop offset [steps]
+Recv: EPR:1 897 90 Tower Z endstop offset [steps]
+Recv: EPR:3 901 210.000 Alpha A(210):
+Recv: EPR:3 905 330.000 Alpha B(330):
+Recv: EPR:3 909 90.000 Alpha C(90):
+Recv: EPR:3 913 2.250 Delta Radius A(0):
+Recv: EPR:3 917 -0.260 Delta Radius B(0):
+Recv: EPR:3 921 -1.875 Delta Radius C(0):
+Recv: EPR:3 933 4.375 Corr. diagonal A [mm]
+Recv: EPR:3 937 -0.500 Corr. diagonal B [mm]
+Recv: EPR:3 941 -3.688 Corr. diagonal C [mm]
+Recv: EPR:3 1024 0.000 Coating thickness [mm]
+Recv: EPR:0 106 2 Bed Heat Manager [0-3]
+Recv: EPR:0 107 255 Bed PID drive max
+Recv: EPR:0 124 80 Bed PID drive min
+Recv: EPR:3 108 196.000 Bed PID P-gain
+Recv: EPR:3 112 33.020 Bed PID I-gain
+Recv: EPR:3 116 290.000 Bed PID D-gain
+Recv: EPR:0 120 255 Bed PID max value [0-255]
+Recv: EPR:0 1020 0 Enable retraction conversion [0/1]
+Recv: EPR:3 992 3.000 Retraction length [mm]
+Recv: EPR:3 1000 40.000 Retraction speed [mm/s]
+Recv: EPR:3 1004 0.000 Retraction z-lift [mm]
+Recv: EPR:3 1008 0.000 Extra extrusion on undo retract [mm]
+Recv: EPR:3 1016 20.000 Retraction undo speed
+Recv: EPR:3 200 467.375 Extr.1 steps per mm
+Recv: EPR:3 204 30.000 Extr.1 max. feedrate [mm/s]
+Recv: EPR:3 208 10.000 Extr.1 start feedrate [mm/s]
+Recv: EPR:3 212 4000.000 Extr.1 acceleration [mm/s^2]
+Recv: EPR:0 216 1 Extr.1 heat manager [0-3]
+Recv: EPR:0 217 196 Extr.1 PID drive max
+Recv: EPR:0 245 60 Extr.1 PID drive min
+Recv: EPR:3 218 12.0700 Extr.1 PID P-gain/dead-time
+Recv: EPR:3 222 1.1600 Extr.1 PID I-gain
+Recv: EPR:3 226 31.3800 Extr.1 PID D-gain
+Recv: EPR:0 230 255 Extr.1 PID max value [0-255]
+Recv: EPR:2 231 0 Extr.1 X-offset [steps]
+Recv: EPR:2 235 0 Extr.1 Y-offset [steps]
+Recv: EPR:2 290 0 Extr.1 Z-offset [steps]
+Recv: EPR:1 239 1 Extr.1 temp. stabilize time [s]
+Recv: EPR:1 250 150 Extr.1 temp. for retraction when heating [C]
+Recv: EPR:1 252 0 Extr.1 distance to retract when heating [mm]
+Recv: EPR:0 254 255 Extr.1 extruder cooler speed [0-255]
+Recv: EPR:3 246 0.000 Extr.1 advance L [0=off]
