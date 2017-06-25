@@ -91,11 +91,13 @@ To override EEPROM settings with config settings, set EEPROM_MODE 0
 
 #include "pins.h"
 
+
 #define Y_MIN_PIN          -1 //14
 #define Y_MAX_PIN          15
 
 #define Z_MIN_PIN          -1 //18
 #define Z_MAX_PIN          14 //19
+
 
 // Override pin definitions from pins.h
 //#define FAN_PIN   4  // Extruder 2 uses the default fan output, so move to an other pin
@@ -112,7 +114,7 @@ We can connect BlueTooth to serial converter module directly to boards based on 
   c) pin 17 and 18 of AUX4 connector, then set BLUETOOTH_SERIAL to 2 (RX from BT to AUX4 p18, TX from BT to AUX4 p17)
   Comment out or set the BLUETOOTH_SERIAL to 0 or -1 to disable this feature.
 */
-#define BLUETOOTH_SERIAL   1                      // Port number (1..3) - For RUMBA use 3
+#define BLUETOOTH_SERIAL   1                     // Port number (1..3) - For RUMBA use 3
 #define BLUETOOTH_BAUD     250000                 // communication speed
 
 // Uncomment the following line if you are using Arduino compatible firmware made for Arduino version earlier then 1.0
@@ -865,9 +867,9 @@ on this endstop.
 
 // Inverting motor direction. Only in case of pure cartesian printers, this
 // is also the axis you invert!
-#define INVERT_X_DIR true
-#define INVERT_Y_DIR true
-#define INVERT_Z_DIR true
+#define INVERT_X_DIR false
+#define INVERT_Y_DIR false
+#define INVERT_Z_DIR false
 
 //// ENDSTOP SETTINGS:
 // Sets direction of endstops when homing; 1=MAX, -1=MIN
@@ -1701,7 +1703,7 @@ Select an encoder speed from 0 = fastest to 2 = slowest that results in one menu
 #define UI_ENCODER_SPEED 1
 
 // Set to 1 to reverse encoder direction
-#define UI_REVERSE_ENCODER 0
+#define UI_REVERSE_ENCODER 1
 
 /* There are 2 ways to change positions. You can move by increments of 1/0.1 mm resulting in more menu entries
 and requiring many turns on your encode. The alternative is to enable speed dependent positioning. It will change
